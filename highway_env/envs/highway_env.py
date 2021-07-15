@@ -81,6 +81,7 @@ class HighwayEnv(AbstractEnv):
         :param action: the last action performed
         :return: the corresponding reward
         """
+        
         lane_change = action == 0 or action == 2
         neighbours = self.road.network.all_side_lanes(self.vehicle.lane_index)
         lane = self.vehicle.target_lane_index[2] if isinstance(self.vehicle, ControlledVehicle) \
@@ -96,7 +97,6 @@ class HighwayEnv(AbstractEnv):
                            self.config["high_speed_reward"] + self.config["right_lane_reward"]],
                           [0, 1])
         reward = 0 if not self.vehicle.on_road else reward
-        print ('calling my modified reward function')
         return reward    
     def _is_terminal(self) -> bool:
         """The episode is over if the ego vehicle crashed or the time is out."""
